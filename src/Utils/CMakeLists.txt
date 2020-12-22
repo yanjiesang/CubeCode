@@ -1,0 +1,8 @@
+set(UTILS_LIB_NAME "Utils")
+
+aux_source_directory(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    UTILS_DIRECTORY_ALL
+)
+
+add_library(${UTILS_LIB_NAME} STATIC ${UTILS_DIRECTORY_ALL})

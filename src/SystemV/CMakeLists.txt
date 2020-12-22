@@ -1,0 +1,8 @@
+set(SYSTEMV_LIB_NAME "SystemV")
+
+aux_source_directory(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    SYSTEMV_DIRECTORY_ALL
+)
+
+add_library(${SYSTEMV_LIB_NAME} STATIC ${SYSTEMV_DIRECTORY_ALL})

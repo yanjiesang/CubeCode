@@ -1,0 +1,15 @@
+#ifndef __SOFTWARE_CONFIG_H_
+#define __SOFTWARE_CONFIG_H_
+
+#define SOFTWARE_LOGOUT_SWITCH
+
+#define PROJECT_NAME               "CubeCode"
+
+#define SOFTWARE_PLATFORM_X86      0
+#define SOFTWARE_PLATFORM_ARM      1
+#define SOFTWARE_PLATFORM          SOFTWARE_PLATFORM_X86
+
+#define SOFTWARE_RELEASE_VERSION   "1.0.0"
+#define SOFTWARE_DEBUG_VERSION     "1.0.0.1"
+
+#endif

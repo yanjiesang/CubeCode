@@ -15,7 +15,6 @@ configure_file(
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/Utils)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/SystemV)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/POSIX)
 if(${TEST_BUILD})
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test/SystemV)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test/POSIX)
@@ -56,6 +55,5 @@ target_link_libraries(
     ${PROJECT_NAME} 
     pthread
     SystemV
-    Posix
     Utils
 )

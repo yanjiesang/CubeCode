@@ -14,7 +14,7 @@
 
 #define MMAP_SIZE 200*1024
 
-std::unique_ptr<Posix::Mmap> MmapObj=nullptr;
+std::unique_ptr<Posix::Mmap<char>> MmapObj=nullptr;
 SystemV::Sem *ShmSemObject=nullptr;
 int thread_running=0;
 
@@ -73,7 +73,7 @@ int main(int argc,char *argv[])
 {
     pthread_t MmapTid;
 
-    MmapObj=Posix::Mmap::Creat("./mmap_file",MMAP_SIZE,PROT_READ|PROT_WRITE,MAP_SHARED);
+    MmapObj=Posix::Mmap<char>::Creat("./mmap_file",MMAP_SIZE,PROT_READ|PROT_WRITE,MAP_SHARED);
     if(MmapObj==nullptr)
     {
         LOG_OUT(ERROR,"mmap Creat Error!\n");

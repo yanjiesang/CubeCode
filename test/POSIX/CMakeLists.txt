@@ -49,7 +49,6 @@ target_link_libraries(
     "PosixMmapRead"
     pthread
     SystemV
-    Posix
     Utils
 )
 
@@ -63,7 +62,6 @@ target_link_libraries(
     "PosixMmapWrite"
     pthread
     SystemV
-    Posix
     Utils
 )
 

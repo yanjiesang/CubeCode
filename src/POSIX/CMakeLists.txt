@@ -1,8 +1,0 @@
-set(POSIX_LIB_NAME "Posix")
-
-aux_source_directory(
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    POSIX_DIRECTORY_ALL
-)
-
-add_library(${POSIX_LIB_NAME} STATIC ${POSIX_DIRECTORY_ALL})

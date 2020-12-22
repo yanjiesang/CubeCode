@@ -49,7 +49,6 @@ target_link_libraries(
     "SystemVRead"
     pthread
     SystemV
-    Posix
     Utils
 )
 
@@ -63,7 +62,6 @@ target_link_libraries(
     "SystemVWrite"
     pthread
     SystemV
-    Posix
     Utils
 )
 

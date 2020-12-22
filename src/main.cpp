@@ -28,7 +28,7 @@
 #define STR_LENGTH      "length"
 #define STR_DATA        "data"
 
-std::unique_ptr<Posix::Mmap> MmapObj=nullptr;
+std::unique_ptr<Posix::Mmap<char>> MmapObj=nullptr;
 SystemV::Sem *ShmSemObject=nullptr;
 int thread_running=0;
 
@@ -99,7 +99,7 @@ int main(int argc,char *argv[])
 
     CompilerInfo();
 
-    MmapObj=Posix::Mmap::Creat("./mmapfile",MMAP_SIZE,PROT_READ|PROT_WRITE,MAP_SHARED);
+    MmapObj=Posix::Mmap<char>::Creat("./mmapfile",MMAP_SIZE,PROT_READ|PROT_WRITE,MAP_SHARED);
     if(MmapObj==nullptr)
     {
         LOG_OUT(ERROR,"mmap Creat Error!\n");

@@ -1,4 +1,5 @@
 build_x86/
 build_arm/
+inc/SoftwareConfig.h
 prebuilts/
 prebuilts.tar

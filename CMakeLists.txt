@@ -18,6 +18,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/SystemV)
 if(${TEST_BUILD})
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test/SystemV)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test/POSIX)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/test/MmapStream)
 endif()
 
 ################################################## Include ##############################################

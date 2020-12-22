@@ -26,8 +26,6 @@
 #define NUMBER_OF_H264_FRAME_FILES      403
 #define DEFAULT_FPS_VALUE               25
 
-bool LogOutEnable=false;
-
 std::unique_ptr<Posix::Mmap<char>> MmapObj=nullptr;
 SystemV::Sem *ShmSemObject=nullptr;
 int thread_running=0;
@@ -61,10 +59,7 @@ void *WriteMmapThreadRoutine(void *arg)
         {
             bzero(filename,sizeof(filename)/sizeof(char));
             sprintf(filename,"./h264SampleFrames/frame-%03d.h264",frame_count);
-            if(LogOutEnable)
-            {
-                LOG_OUT(INFO,"Load %03d Frame",frame_count);
-            }
+            LOG_OUT(INFO,"Load %03d Frame",frame_count);
 
             MmapObj->Clean();
             fileszie=ReadDataFromFile(filename,MmapObj->GetMmapPtr()+sizeof(ssize_t));
@@ -102,15 +97,7 @@ int main(int argc,char *argv[])
 
     CompilerInfo();
 
-    if(argc==2)
-    {
-        if(strcmp(argv[1],"ON")==0||strcmp(argv[1],"On")==0||strcmp(argv[1],"on")==0||strcmp(argv[1],"oN")==0)
-        {
-            LogOutEnable=true;
-        }
-    }
-
-    MmapObj=Posix::Mmap<char>::Creat("/tmp/YgAppMmapFile",MMAP_SIZE,PROT_READ|PROT_WRITE,MAP_SHARED);
+    MmapObj=Posix::Mmap<char>::Creat("./YgAppMmapFile",MMAP_SIZE,PROT_READ|PROT_WRITE,MAP_SHARED);
     if(MmapObj==nullptr)
     {
         LOG_OUT(ERROR,"mmap Creat Error!\n");

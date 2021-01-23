@@ -89,22 +89,37 @@ void *WriteShmThreadRoutine(void *arg)
 {
     int count=0;
     char writebuffer[SHM_SIZE];
+    time_t timeval;
+    struct tm *tt;
+    char timestr[100];
     while(thread_running)
     {
         bzero(writebuffer,sizeof(writebuffer)/sizeof(char));
 
-        // Utils::JsonParser::JsonDocument JsonDoc;
-        // JsonDoc.SetObject();
-        // JsonDoc.AddMember("Count",count++,JsonDoc.GetAllocator());
-        // memcpy(writebuffer,
-        //         Utils::JsonParser::ToString(JsonDoc).c_str(),
-        //         Utils::JsonParser::ToString(JsonDoc).size());
+        Utils::JsonParser::JsonDocument JsonDoc;
+        timeval=time(NULL);
+        tt=localtime(&timeval);
+        memset(timestr,0,sizeof(timestr));
+        sprintf(timestr,"%04d-%02d-%02d %02d:%02d",tt->tm_year+1900,tt->tm_mon+1,tt->tm_mday,tt->tm_hour,tt->tm_min);
+
+        JsonDoc.SetObject();
+        JsonDoc.AddMember("ProtocolVersion","1.0",JsonDoc.GetAllocator());
+        // 清扫记录测试
+        JsonDoc.AddMember("CUploadRecord",true,JsonDoc.GetAllocator());
+        JsonDoc.AddMember("CStartTime",rapidjson::Value(timestr,strlen(timestr),JsonDoc.GetAllocator()),JsonDoc.GetAllocator());
+        JsonDoc.AddMember("CEndTime","2021-01-23 13:18",JsonDoc.GetAllocator());
+        JsonDoc.AddMember("CleanArea",10,JsonDoc.GetAllocator());
+        JsonDoc.AddMember("CleanTime",10,JsonDoc.GetAllocator());
+        // MapData填入需要的地图数据
+        JsonDoc.AddMember("MapData",Utils::JsonParser::JsonValue(std::to_string(count).c_str(), std::to_string(count).size(), JsonDoc.GetAllocator()),JsonDoc.GetAllocator());
+        memcpy(writebuffer,Utils::JsonParser::ToString(JsonDoc).c_str(),Utils::JsonParser::ToString(JsonDoc).size());
 
         ShmSemObject->Decrease(0);   // P操作锁定临界资源
-        // ShmObject->Send(writebuffer,0,SHM_SIZE);
+        ShmObject->Send(writebuffer,0,SHM_SIZE);
         ShmSemObject->Increase(1);   // V操作解锁临界资源
 
-        // LOG_OUT(INFO,"Shm Send Data:\n%s\n",Utils::JsonParser::ToString(JsonDoc).c_str());
+        LOG_OUT(INFO,"Shm Send Data:\n%s\n",Utils::JsonParser::ToString(JsonDoc).c_str());
+        count++;
         //每隔2秒向共享内存写入数据
         sleep(2);
     }
